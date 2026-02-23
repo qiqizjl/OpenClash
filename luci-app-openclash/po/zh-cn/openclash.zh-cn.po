@@ -2514,6 +2514,12 @@ msgstr "仅备份规则集"
 msgid "Backup Proxy Provider"
 msgstr "仅备份代理集"
 
+msgid "IPv4 Network Forced List"
+msgstr "强制转发 IPv4 黑名单"
+
+msgid "The Traffic of The Destination For The Specified Address Will Forced Proxy The Core"
+msgstr "列表中的 IP 会强制转发至内核"
+
 msgid "Chnroute Bypassed List"
 msgstr "绕过指定区域 IPv4 黑名单"
 

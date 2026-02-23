@@ -515,6 +515,25 @@ function o.write(self, section, value)
 	end
 end
 
+o = s:taboption("traffic_control", Value, "ipv4_network_forced", translate("IPv4 Network Forced List"))
+o.template = "cbi/tvalue"
+o.description = translate("The Traffic of The Destination For The Specified Address Will Forced Proxy The Core")
+o.rows = 20
+o.wrap = "off"
+
+function o.cfgvalue(self, section)
+	return NXFS.readfile("/etc/openclash/custom/openclash_custom_ipv4_network_forced.list") or ""
+end
+function o.write(self, section, value)
+	if value then
+		value = value:gsub("\r\n?", "\n")
+		local old_value = NXFS.readfile("/etc/openclash/custom/openclash_custom_ipv4_network_forced.list")
+		if value ~= old_value then
+			NXFS.writefile("/etc/openclash/custom/openclash_custom_ipv4_network_forced.list", value)
+		end
+	end
+end
+
 --Stream Enhance
 o = s:taboption("stream_enhance", Flag, "stream_auto_select", font_red..bold_on..translate("Auto Select Unlock Proxy")..bold_off..font_off)
 o.description = translate("Auto Select Proxy For Streaming Unlock, Support Netflix, Disney Plus, HBO And YouTube Premium, etc")
@@ -975,7 +994,7 @@ o:value("https://github.com/alecthw/mmdb_china_ip_list/releases/latest/download/
 o.default = "https://testingcf.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb"
 o:depends("geo_auto_update", "1")
 
-o = s:taboption("geo_update", Button, translate("GEOIP Update")) 
+o = s:taboption("geo_update", Button, translate("GEOIP Update"))
 o.title = translate("Update GeoIP MMDB")
 o.description = translate("Current Version:").." "..font_green..bold_on..fs.get_resourse_mtime("/etc/openclash/Country.mmdb")..bold_off..font_off
 o.inputtitle = translate("Check And Update")
@@ -1019,7 +1038,7 @@ o:value("https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/downloa
 o.default = "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
 o:depends("geoip_auto_update", "1")
 
-o = s:taboption("geo_update", Button, translate("GEOIP Dat Update")) 
+o = s:taboption("geo_update", Button, translate("GEOIP Dat Update"))
 o.title = translate("Update GeoIP Dat")
 o.description = translate("Current Version:").." "..font_green..bold_on..fs.get_resourse_mtime("/etc/openclash/GeoIP.dat")..bold_off..font_off
 o.inputtitle = translate("Check And Update")
@@ -1063,7 +1082,7 @@ o:value("https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/downloa
 o.default = "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
 o:depends("geosite_auto_update", "1")
 
-o = s:taboption("geo_update", Button, translate("GEOSITE Update")) 
+o = s:taboption("geo_update", Button, translate("GEOSITE Update"))
 o.title = translate("Update GeoSite Database")
 o.description = translate("Current Version:").." "..font_green..bold_on..fs.get_resourse_mtime("/etc/openclash/GeoSite.dat")..bold_off..font_off
 o.inputtitle = translate("Check And Update")
